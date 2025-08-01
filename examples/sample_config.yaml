@@ -1,0 +1,101 @@
+version: "1.0"
+global_settings:
+  case_sensitive: false
+  default_priority: 0
+  max_rules: 100
+  description: "태그 필터링 시스템 샘플 설정 (YAML)"
+
+rules:
+  - filter_type: "group"
+    patterns:
+      - "steam"
+      - "sweat"
+      - "blush"
+    priority: 100
+    enabled: true
+    description: "NSFW 암시 조합 제거 - 세 태그가 모두 있을 때 전체 제거"
+
+  - filter_type: "group"
+    patterns:
+      - "nude"
+      - "naked"
+      - "explicit"
+    priority: 95
+    enabled: true
+    description: "명시적 NSFW 조합 제거"
+
+  - filter_type: "regex"
+    pattern: "\\b(nsfw|adult|18\\+)\\b"
+    priority: 90
+    enabled: true
+    description: "NSFW 관련 키워드 정확 매칭"
+
+  - filter_type: "wildcard"
+    pattern: "*_hair"
+    priority: 50
+    enabled: true
+    description: "모든 머리카락 관련 태그 제거"
+
+  - filter_type: "wildcard"
+    pattern: "*_eyes"
+    priority: 45
+    enabled: false
+    description: "모든 눈 관련 태그 제거 (비활성화됨)"
+
+  - filter_type: "plain_keyword"
+    pattern: "violence"
+    priority: 80
+    enabled: true
+    description: "폭력 관련 키워드 제거"
+
+  - filter_type: "plain_keyword"
+    pattern: "gore"
+    priority: 75
+    enabled: true
+    description: "고어 관련 키워드 제거"
+
+  - filter_type: "replace"
+    pattern: "bad_word"
+    replacement: "good_word"
+    priority: 40
+    enabled: true
+    description: "부적절한 단어를 적절한 단어로 교체"
+
+  - filter_type: "replace"
+    pattern: "inappropriate"
+    replacement: "appropriate"
+    priority: 35
+    enabled: true
+    description: "부적절한 표현을 적절한 표현으로 교체"
+
+  - filter_type: "replace_capture"
+    pattern: "(.*)_old"
+    replacement: "$1_new"
+    priority: 30
+    enabled: true
+    description: "_old로 끝나는 태그를 _new로 교체"
+
+  - filter_type: "replace_capture"
+    pattern: "old_(.*)_style"
+    replacement: "modern_$1_style"
+    priority: 25
+    enabled: false
+    description: "구식 스타일을 현대식으로 교체 (비활성화됨)"
+
+  - filter_type: "regex"
+    pattern: "\\d{4}_\\d{2}_\\d{2}"
+    priority: 20
+    enabled: true
+    description: "날짜 형식 태그 제거 (YYYY_MM_DD)"
+
+  - filter_type: "wildcard"
+    pattern: "temp_*"
+    priority: 15
+    enabled: true
+    description: "임시 태그 제거"
+
+  - filter_type: "plain_keyword"
+    pattern: "debug"
+    priority: 10
+    enabled: true
+    description: "디버그 태그 제거"

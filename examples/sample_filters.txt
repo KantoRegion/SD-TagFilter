@@ -1,0 +1,27 @@
+# 샘플 필터 규칙 텍스트 파일
+# 이 파일은 plain text 형식으로 필터 규칙을 정의합니다.
+# 
+# 지원하는 형식:
+# - 일반 키워드: keyword
+# - 정규식: /.*keyword/
+# - 치환: keyword||replace
+
+# NSFW 관련 키워드 제거
+nsfw
+adult
+explicit
+
+# 정규식을 사용한 패턴 매칭
+/\b(nude|naked)\b/
+/\d{4}_\d{2}_\d{2}/
+
+# 치환 규칙
+bad_word||good_word
+inappropriate||appropriate
+old_style||new_style
+
+# 일반 키워드들
+violence
+gore
+debug
+temp
